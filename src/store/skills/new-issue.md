@@ -25,10 +25,17 @@ If the user does not specify a type, ask which label applies before creating the
 **Body (template):** When writing the issue body, use icons on section headers. Structure:
 
 - **📖 Description:** Context and background. Write as much detail as needed to thoroughly explain the ticket (why it exists, background, constraints, links — whatever is relevant).
-- **✅ Acceptance criteria / Tasks:** Bullet list of what "done" looks like (optional for spikes).
+- **✅ Acceptance criteria / Tasks:** Checkbox list of what "done" looks like (optional for spikes). Use GitHub task list syntax: one unchecked checkbox per criterion, e.g. `- [ ] User can save draft` or `- [ ] API returns 404 when resource is missing`.
 - **🔧 Implementation notes:** Technical notes, approach, or implementation hints (optional).
 
 Use the template when the user does not provide a full body.
+
+## Spikes
+
+For issues labeled `spike`:
+
+- Include in the body: **📝 Output:** Final research, plan, and implementation notes go in `dev_agent_notes` (or the project’s designated doc, e.g. `dev_agent_notes.md`).
+- In **Acceptance criteria / Tasks**, include the checkbox: `- [ ] Document findings and implementation plan in dev_agent_notes`.
 
 ## Repository (owner / repo)
 
