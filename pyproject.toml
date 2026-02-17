@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "task-buddy"
+version = "0.1.0"
+description = "Setup scripts for MCP tools and skills at user level."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+dependencies = [
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=24.0.0",
+]
+
+[project.scripts]
+task-buddy-github = "src.setup_github:main"
+task-buddy-postgres = "src.setup_postgres:main"
+task-buddy-skills = "src.setup_skills:main"
+
+[tool.setuptools.packages.find]
+packages = ["src"]
+
+[tool.black]
+line-length = 150
+target-version = ["py38"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
