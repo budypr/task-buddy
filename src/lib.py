@@ -119,23 +119,3 @@ def install_skill(stem: str) -> None:
     dest_dir.mkdir(parents=True)
     shutil.copy2(src, dest_dir / "SKILL.md")
     print(f"Installed: {stem} -> {dest_dir / 'SKILL.md'}")
-
-
-def print_skills_table(skills: list[tuple[str, str, str, str]], use_rust_table: bool = True) -> None:
-    """Print skills as a table. If use_rust_table, try skills-table binary; else simple list."""
-    rust_bin = REPO_ROOT / "skills-table" / "target" / "release" / "skills-table"
-    if use_rust_table and rust_bin.is_file() and os.access(rust_bin, os.X_OK):
-        proc = subprocess.Popen(
-            [str(rust_bin)],
-            stdin=subprocess.PIPE,
-            text=True,
-        )
-        for i, (stem, name, desc, mcp) in enumerate(skills, 1):
-            proc.stdin.write(f"{i}\t{name}\t{desc}\t{mcp or ''}\n")
-        proc.stdin.close()
-        proc.wait()
-        return
-    print("Available skills (run 'cargo build --release' in skills-table/ for table view):")
-    for i, (stem, name, desc, mcp) in enumerate(skills, 1):
-        mcp_suffix = f" (MCP: {mcp})" if mcp else ""
-        print(f"  {i}) {name} - {desc}{mcp_suffix}")
