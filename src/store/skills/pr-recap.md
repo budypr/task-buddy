@@ -24,6 +24,7 @@ Do these steps in order:
 4. **Infer changes from git** — Run `git diff main...HEAD` (or `origin/main...HEAD` / the repo’s default branch). Optionally run `git log main..HEAD --oneline`. Use the diff and commit messages to fill the five sections.
 5. **If no git or no diff** — Ask the user for a short summary of what changed, then produce the recap from that.
 6. **Produce the recap** — Output the five sections below using the exact headings and rules. Use the **Output format** template as the structure for your response.
+7. **Confirm before updating the PR** — After showing the recap, ask: “Do you want to update the PR description with this recap?” **Only if** the user confirms (e.g. “yes”, “update it”, “go ahead”), use GitHub MCP to set the PR body to the recap. **If** they decline or do not confirm, do not call any GitHub MCP write/update tools.
 
 ## Output format
 
