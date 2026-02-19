@@ -6,7 +6,7 @@ mcp: postgres
 
 # pg-ask
 
-Answer Postgres questions and write SQL using the **Postgres MCP**. Prerequisite: Postgres MCP server configured and available (e.g. run `python3 src/setup_postgres.py`). If the tool is unavailable, tell the user to enable the Postgres MCP server.
+Answer Postgres questions and write SQL using the **Postgres MCP**. Use **mcp_postgres_query** for read-only schema discovery and to run or validate queries. Prerequisite: Postgres MCP server configured and available (e.g. run `python3 src/setup_postgres.py`). If the tool is unavailable, tell the user to enable the Postgres MCP server.
 
 ## 1. Understand the request
 
@@ -18,7 +18,7 @@ Before writing any SQL:
 
 ## 2. Understand relationships
 
-Use the Postgres MCP (read-only) to discover schema and relationships:
+Query the database via the Postgres MCP (read-only, e.g. **mcp_postgres_query**) to discover schema and relationships:
 
 - **Tables and columns:** `information_schema.tables`, `information_schema.columns`, or `pg_catalog` as appropriate.
 - **Relationships:** `information_schema.table_constraints`, `information_schema.key_column_usage`, `information_schema.referential_constraints` to identify primary and foreign keys.
@@ -35,7 +35,7 @@ Use this to choose the right tables and join conditions. Avoid Cartesian product
 
 ## 4. Performance
 
-- **EXPLAIN for complex queries:** For non-trivial queries (multiple JOINs, subqueries, aggregations), suggest running `EXPLAIN (ANALYZE)` and interpreting the plan (sequential scans, missing indexes, high cost). Use this to refine the query or suggest indexes.
+- **EXPLAIN for complex queries:** For non-trivial queries (multiple JOINs, subqueries, aggregations), run `EXPLAIN (ANALYZE)` via the MCP when useful and interpret the plan (sequential scans, missing indexes, high cost). Use this to refine the query or suggest indexes.
 - **Avoid N+1:** Do not design "one query per row." Use a single query with JOINs, or batch with `IN (...)` / `= ANY($1::int[])`, or a LATERAL join.
 
 ## 5. Construct the query and show it (format)
