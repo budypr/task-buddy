@@ -12,8 +12,8 @@ Structured workflow: **ASK → PLAN → TECHNICAL DETAILS → IMPLEMENT**. Do no
 
 Squash-this **requires a GitHub issue ID** (issue number or full reference). Do not start the workflow without it.
 
-1. **Get the issue reference** from the user (e.g. `#42`, `42`, or owner/repo#42). Resolve **owner** and **repo** from the current workspace git remote when not given.
-2. **Fetch the issue via GitHub MCP:** Retrieve the issue's **title**, **body** (description), and **comments**. Use this as the **primary context** for all phases (ASK, PLAN, TECHNICAL DETAILS, IMPLEMENT).
+1. **Get the issue reference** from the user (e.g. `#42`, `42`, or owner/repo#42). Resolve **owner** and **repo** from the current workspace git remote when not given (parse `origin`; if the remote is not github.com or cannot be parsed, ask the user for owner and repo).
+2. **Fetch the issue via GitHub MCP:** Use **mcp_github_get_issue** to retrieve the issue's **title**, **body** (description), and **comments**. Use this as the **primary context** for all phases (ASK, PLAN, TECHNICAL DETAILS, IMPLEMENT).
 3. **Load context before Phase 1:** The issue title, description, and comments define the problem and constraints. Use them to research, summarize, and drive the workflow. If the issue cannot be fetched (e.g. GitHub MCP unavailable or invalid ID), ask the user to provide the issue reference or enable GitHub MCP.
 
 ## Solution standards
@@ -53,8 +53,8 @@ Apply these when evaluating options (PLAN), designing (TECHNICAL DETAILS), and i
 ## Phase 4: IMPLEMENT
 
 1. **Set up branch:**
-   - **Assign the GitHub issue to the user** (via GitHub MCP).
-   - **Git:** Run `git fetch --all`, then create and checkout a new branch off local `main` with the format `{github_user}/{issue_number}-{short-descriptive-title}` (e.g. `ivan/42-add-user-login`).
+   - **Assign the GitHub issue to the user:** Use **mcp_github_update_issue** with assignees set to the user's GitHub username (ask if unknown).
+   - **Git:** Run `git fetch --all`, then create and checkout a new branch off the local default branch (e.g. `main` or `master`) with the format `{github_user}/{issue_number}-{short-descriptive-title}` (e.g. `ivan/42-add-user-login`). Use the user's GitHub username for `{github_user}` (from git config or ask if unknown).
 2. **Write the implementation plan** to a folder:
    - Path: `{workspace root}/dev_agent_notes/{issue_id}-{short-descriptive-title}/`
    - Use the same short-descriptive-title as in the branch name (e.g. `42-add-user-login`, `17-refactor-payment-flow`).
