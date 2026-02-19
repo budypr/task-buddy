@@ -6,6 +6,7 @@ try:
     from src.lib import (
         SKILLS_SRC_DIR,
         discover_skills,
+        install_critical_reasoning_rule,
         install_skill,
         skill_installed,
     )
@@ -14,6 +15,7 @@ except ImportError:
     from src.lib import (
         SKILLS_SRC_DIR,
         discover_skills,
+        install_critical_reasoning_rule,
         install_skill,
         skill_installed,
     )
@@ -92,6 +94,7 @@ def main() -> None:
                 console.print(f"[red]error:[/red] {e}")
                 sys.exit(1)
 
+        install_critical_reasoning_rule()
         console.print("[green]Done.[/green]")
         console.print()
 

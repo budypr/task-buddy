@@ -48,6 +48,8 @@ task-buddy-skills
 
 You’ll see a table of available skills. Enter a **number** to install one, **multiple numbers** (e.g. `1 3 5`) for several, or **all** to install every skill.
 
+When you install skills, the installer copies **REASONING_APPROACH.md** from the project (`src/store/skills/REASONING_APPROACH.md`) to the Cursor skills root (`~/.cursor/skills/REASONING_APPROACH.md`), overwriting if present, and injects a short reference into each skill so the AI follows the reasoning habits when using that skill. It also installs a user-level Cursor rule **critical-reasoning** to `~/.cursor/rules/` so the same habits apply to every conversation in every project (optional; overwritten on each run).
+
 **Bundled skills**
 
 | Skill | Description |
@@ -61,6 +63,8 @@ You’ll see a table of available skills. Enter a **number** to install one, **m
 - **src/** – Python package; `lib.py` holds shared MCP and skills helpers; `setup_github.py` / `setup_postgres.py` / `setup_skills.py` are the entry points.
 - **src/store/mcp-tools/** – MCP config snippets (e.g. `github.json`, `postgres.json`). Scripts merge these into `~/.cursor/mcp.json`.
 - **src/store/skills/** – Cursor skills as `.md` files with YAML frontmatter (`name`, `description`). Each file is installed as `~/.cursor/skills/<stem>/SKILL.md`.
+- **src/store/skills/REASONING_APPROACH.md** – Shared reasoning fragment (project); copied to the Cursor skills root and referenced by each installed skill.
+- **.cursor/rules/critical-reasoning.mdc** – User-level “always on” rule (four reasoning habits); copied to `~/.cursor/rules/` when you run the skills installer.
 
 ## Adding more
 
