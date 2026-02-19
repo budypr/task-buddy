@@ -18,13 +18,13 @@ Apply this skill when the user:
 
 Do these steps in order:
 
-1. **Resolve owner and repo** — From the workspace git remote (e.g. `origin`), parse `https://github.com/owner/repo` or `git@github.com:owner/repo.git`. If not a git repo or no remote, ask the user for owner and repo.
+1. **Resolve owner and repo** — From the workspace git remote (e.g. `origin`), parse `https://github.com/owner/repo` or `git@github.com:owner/repo.git`. If the remote URL is not github.com, or not a git repo, or no remote, ask the user for the GitHub owner and repo.
 2. **Get current branch** — Run `git branch --show-current`.
-3. **Find PR for this branch** — Call GitHub MCP `list_pull_requests` with `head` = `owner:branch` (e.g. `owner:feature/login`). If a PR exists, use its title, body, and diff to enrich the recap.
-4. **Infer changes from git** — Run `git diff main...HEAD` (or `origin/main...HEAD` / the repo’s default branch). Optionally run `git log main..HEAD --oneline`. Use the diff and commit messages to fill the five sections.
+3. **Find PR for this branch** — Call **mcp_github_list_pull_requests** with `head` = `owner:branch` (e.g. `owner:feature/login`). If a PR exists, use its title, body, and diff to enrich the recap.
+4. **Infer changes from git** — Run `git diff main...HEAD` (or `origin/main...HEAD`; use the repo’s default branch, e.g. main or master). Optionally run `git log main..HEAD --oneline`. Use the diff and commit messages to fill the five sections.
 5. **If no git or no diff** — Ask the user for a short summary of what changed, then produce the recap from that.
 6. **Produce the recap** — Output the five sections below using the exact headings and rules. Use the **Output format** template as the structure for your response.
-7. **Confirm before updating the PR** — After showing the recap, ask: “Do you want to update the PR description with this recap?” **Only if** the user confirms (e.g. “yes”, “update it”, “go ahead”), use GitHub MCP to set the PR body to the recap. **If** they decline or do not confirm, do not call any GitHub MCP write/update tools.
+7. **Confirm before updating the PR** — After showing the recap, ask: “Do you want to update the PR description with this recap?” **Only if** the user confirms (e.g. “yes”, “update it”, “go ahead”), use the GitHub MCP to set the PR body to the recap (use the appropriate update PR tool if available). **If** they decline or do not confirm, do not call any GitHub MCP write/update tools.
 
 ## Output format
 
