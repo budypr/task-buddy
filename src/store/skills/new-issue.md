@@ -25,7 +25,7 @@ If the user does not specify a type, ask which label applies before creating the
 **Body (template):** When writing the issue body, use icons on section headers. Structure:
 
 - **📖 Description:** Context and background. Write as much detail as needed to thoroughly explain the ticket (why it exists, background, constraints, links — whatever is relevant).
-- **✅ Acceptance criteria / Tasks:** Checkbox list of what "done" looks like (optional for spikes). Use GitHub task list syntax: one unchecked checkbox per criterion, e.g. `- [ ] User can save draft` or `- [ ] API returns 404 when resource is missing`.
+- **✅ Acceptance criteria / Tasks:** Checkbox list of what "done" looks like. Use GitHub task list syntax: one unchecked checkbox per criterion, e.g. `- [ ] User can save draft` or `- [ ] API returns 404 when resource is missing`. For spikes, other criteria are optional but at least the doc checkbox (see Spikes) is required.
 - **🔧 Implementation notes:** Technical notes, approach, or implementation hints (optional).
 
 Use the template when the user does not provide a full body.
@@ -34,14 +34,14 @@ Use the template when the user does not provide a full body.
 
 For issues labeled `spike`:
 
-- Include in the body: **📝 Output:** Final research, plan, and implementation notes go in `dev_agent_notes` (or the project’s designated doc, e.g. `dev_agent_notes.md`).
+- Include in the body: **📝 Output:** Final research, plan, and implementation notes go in the `dev_agent_notes/` folder (or the project’s designated output folder).
 - In **Acceptance criteria / Tasks**, include the checkbox: `- [ ] Document findings and implementation plan in dev_agent_notes`.
 
 ## Repository (owner / repo)
 
 **Create the issue in the repo the user is working in.** Determine owner and repo from the current workspace:
 
-- From the workspace **git remote** (e.g. `origin`): parse `https://github.com/owner/repo` or `git@github.com:owner/repo.git` to get `owner` and `repo`.
+- From the workspace **git remote** (e.g. `origin`): parse `https://github.com/owner/repo` or `git@github.com:owner/repo.git` to get `owner` and `repo`. If the remote URL is not github.com (e.g. GitLab or another host), ask the user for the GitHub owner and repo.
 - If the workspace is not a git repo or has no GitHub remote, ask the user for owner and repo.
 
 Do not ask for owner/repo when they can be inferred from the project.
@@ -51,4 +51,4 @@ Do not ask for owner/repo when they can be inferred from the project.
 1. Resolve **owner** and **repo** from the current repo's git remote; only ask if unknown.
 2. Confirm **label**: bug, feature, or spike.
 3. Draft **title** and **body** from user input; fill from template if needed.
-4. Call the GitHub MCP tool to create the issue with that single label.
+4. Call **mcp_github_create_issue** with owner, repo, title, body, and labels (exactly one: the type label). Add assignees or milestone only if the user specifies them.
